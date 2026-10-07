@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#0a0a0b"/>
+  <!-- film frame corners -->
+  <g stroke="#c1a16a" stroke-width="1.6" fill="none" opacity="0.9">
+    <path d="M9 21V9h12M43 9h12v12M55 43v12H43M21 55H9V43"/>
+  </g>
+  <!-- registration crosshair -->
+  <g stroke="#e9e4da" stroke-width="1" opacity="0.45">
+    <line x1="32" y1="14" x2="32" y2="50"/>
+    <line x1="18" y1="32" x2="46" y2="32"/>
+  </g>
+  <circle cx="32" cy="32" r="8.5" fill="none" stroke="#e9e4da" stroke-width="1.2" opacity="0.85"/>
+  <rect x="27" y="27" width="10" height="10" fill="none" stroke="#c1a16a" stroke-width="1.4" transform="rotate(45 32 32)"/>
+</svg>

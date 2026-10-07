@@ -1,0 +1,240 @@
+/* =============================================================
+   ABOUT — editorial copy + production annotations
+   ============================================================= */
+
+.about {
+  background:
+    linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.28) 40%, transparent),
+    var(--ink-900);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.about__title {
+  margin-bottom: clamp(1.6rem, 4vw, 3rem);
+}
+
+.about__body {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 56ch;
+}
+
+.about__body .t-lede {
+  color: var(--paper-2);
+}
+
+/* ---- Availability ---- */
+.about__seeking {
+  margin-top: clamp(2.2rem, 5vw, 3.6rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.about__seeking-label {
+  font-size: var(--fs-micro);
+  color: var(--brass);
+  letter-spacing: 0.24em;
+  margin-bottom: 1.1rem;
+}
+
+.about__seeking-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(0.8rem, 2vw, 1.6rem);
+}
+
+.about__seeking-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.about__seeking-list li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--brass);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+.about__seeking-list span {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.3vw, 1.9rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+  display: inline-block;
+}
+
+.about__seeking-note {
+  margin-top: 1.2rem;
+  font-style: italic;
+  color: var(--smoke);
+}
+
+/* =============================================================
+   PRODUCTION-NOTE ANNOTATIONS
+   ============================================================= */
+
+.about__notes {
+  position: sticky;
+  top: clamp(6rem, 16vh, 9rem);
+  padding-left: clamp(0.5rem, 2vw, 1.5rem);
+  border-left: 1px solid var(--line);
+}
+
+.about__notes-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.7rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.about__notes-count {
+  color: var(--brass);
+}
+
+.about__note-list {
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+
+.note {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: clamp(0.5rem, 1.3vw, 0.85rem) 0;
+  margin-left: var(--depth);
+  border-bottom: 1px dashed rgba(233, 228, 218, 0.06);
+  transition: border-color 0.5s var(--ease-out), margin-left 0.6s var(--ease-out);
+}
+
+.note:last-child {
+  border-bottom: none;
+}
+
+.note:hover {
+  border-bottom-color: rgba(193, 161, 106, 0.28);
+  margin-left: calc(var(--depth) + 6px);
+}
+
+/* Handwritten production annotation, leaning slightly off the grid */
+.note__tick {
+  position: relative;
+  margin-top: 0.55em;
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+
+.note__tick::before,
+.note__tick::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--brass-soft);
+  border-radius: 50%;
+  transition: inset 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+}
+
+.note__tick::after {
+  inset: 3px;
+  background: var(--brass);
+  border: none;
+}
+
+.note:hover .note__tick::before {
+  inset: -3px;
+  border-color: var(--brass);
+}
+
+.note__leader {
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--line-3) 0 2px,
+    transparent 2px 4px
+  );
+}
+
+.note__body {
+  display: grid;
+  gap: 0.28rem;
+  min-width: 0;
+}
+
+.note__term {
+  font-family: var(--font-mono);
+  font-size: clamp(0.7rem, 0.86vw, 0.82rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-2);
+  transform: rotate(-0.35deg);
+  transform-origin: left center;
+}
+
+.note:hover .note__term {
+  color: var(--brass);
+}
+
+.note__detail {
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 0.82vw, 0.82rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--smoke);
+  max-width: 34ch;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+  }
+  .about__notes {
+    position: static;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-top: 1.6rem;
+    margin-top: clamp(2rem, 6vw, 3rem);
+  }
+  .note {
+    margin-left: 0;
+  }
+  .note__leader {
+    display: none;
+  }
+  .note__body {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 0.9rem;
+    align-items: baseline;
+  }
+}
+
+@media (max-width: 620px) {
+  .note__body {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

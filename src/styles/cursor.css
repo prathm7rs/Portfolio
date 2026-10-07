@@ -1,0 +1,89 @@
+/* =============================================================
+   CURSOR — dot + lagging ring, desktop only
+   ============================================================= */
+
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 9800;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.cursor-visible .cursor {
+  opacity: 1;
+}
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: 5px;
+  height: 5px;
+  background: var(--paper);
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+
+.cursor__dot[data-hidden="true"] {
+  opacity: 0;
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0.4);
+}
+
+.cursor-down .cursor__dot {
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(2);
+}
+
+.cursor__ring {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(233, 228, 218, 0.5);
+  background: rgba(10, 10, 11, 0.32);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  transition:
+    width 0.45s var(--ease-out),
+    height 0.45s var(--ease-out),
+    background-color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    opacity 0.4s var(--ease-out);
+}
+
+.cursor__ring[data-expanded="true"] {
+  border-color: var(--brass-soft);
+  background: rgba(10, 10, 11, 0.72);
+}
+
+.cursor__label {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out);
+  white-space: nowrap;
+}
+
+.cursor__ring[data-expanded="true"] .cursor__label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

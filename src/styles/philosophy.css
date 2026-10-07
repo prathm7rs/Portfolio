@@ -1,0 +1,132 @@
+/* =============================================================
+   WORKING PHILOSOPHY
+   ============================================================= */
+
+.philosophy {
+  position: relative;
+  background: var(--ink-900);
+  overflow: hidden;
+}
+
+/* Faint field of marks, like annotations in the margin of every page */
+.philosophy__field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.philosophy__field span {
+  position: absolute;
+  left: calc(4% + (var(--i) * 3.6%));
+  top: calc(6% + ((var(--i) * 37) % 88) * 1%);
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(233, 228, 218, 0.08);
+  border-radius: 50%;
+}
+
+.philosophy__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(1.8rem, 4vw, 3rem);
+}
+
+.philosophy__title {
+  max-width: 16ch;
+}
+
+.philosophy__quote {
+  max-width: 46ch;
+  padding-left: clamp(1rem, 2.5vw, 2rem);
+  border-left: 1px solid var(--brass-faint);
+}
+
+.philosophy__quote-text {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.7vw, 1.55rem);
+  line-height: 1.4;
+  color: var(--paper-3);
+}
+
+.philosophy__pillars {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(1rem, 3vw, 2.5rem);
+}
+
+.pillar {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  background: var(--ink-900);
+  overflow: hidden;
+  transition: background-color 0.6s var(--ease-out);
+}
+
+.pillar:hover {
+  background: var(--ink-800);
+}
+
+.pillar__n {
+  color: var(--brass);
+  font-size: 0.44rem;
+  letter-spacing: 0.24em;
+}
+
+.pillar__term {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.pillar__note {
+  color: var(--smoke);
+  font-size: 0.44rem;
+  letter-spacing: 0.12em;
+  line-height: 2;
+  text-transform: none;
+  max-width: 34ch;
+}
+
+/* Corner bracket that draws on hover */
+.pillar__mark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid var(--brass);
+  border-right: 1px solid var(--brass);
+  opacity: 0;
+  transform: translate(4px, -4px);
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.pillar:hover .pillar__mark {
+  opacity: 0.8;
+  transform: translate(0, 0);
+}
+
+@media (max-width: 900px) {
+  .philosophy__pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .philosophy__pillars {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

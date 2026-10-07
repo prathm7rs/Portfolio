@@ -1,0 +1,528 @@
+/* =============================================================
+   EXPERTISE — index cards, not UI cards
+   ============================================================= */
+
+.expertise {
+  background: var(--ink-900);
+}
+
+.expertise__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.expertise__lede {
+  max-width: 40ch;
+  padding-bottom: 0.5rem;
+}
+
+.skillgrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.2vw, 1.1rem);
+}
+
+/* ---------- The card ---------- */
+.skillcard {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.85rem;
+  min-height: clamp(190px, 19vw, 220px);
+  padding: 1.1rem 1.05rem 0.9rem;
+  background:
+    linear-gradient(178deg, rgba(233, 228, 218, 0.032), rgba(233, 228, 218, 0.006)),
+    var(--ink-800);
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    border-color 0.5s var(--ease-out),
+    transform 0.65s var(--ease-out),
+    box-shadow 0.65s var(--ease-out);
+}
+
+.skillcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 25px,
+      rgba(233, 228, 218, 0.035) 25px 26px
+    );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.skillcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    rgba(193, 161, 106, 0.09),
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.skillcard:hover,
+.skillcard[data-open="true"] {
+  border-color: rgba(193, 161, 106, 0.4);
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 44px -28px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(193, 161, 106, 0.08);
+}
+
+.skillcard:hover::after,
+.skillcard[data-open="true"]::after {
+  opacity: 1;
+}
+
+/* Perforated top edge — the card is torn from a pad */
+.skillcard__perf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background-image: radial-gradient(
+    circle at 5px 0,
+    transparent 0 3px,
+    rgba(233, 228, 218, 0.14) 3px 4px,
+    transparent 4px
+  );
+  background-size: 10px 7px;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.skillcard__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  position: relative;
+  z-index: 2;
+}
+
+.skillcard__idx {
+  color: var(--brass);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  flex: none;
+}
+
+.skillcard__title {
+  font-family: var(--font-sans);
+  font-size: clamp(0.78rem, 1.02vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--paper);
+  transition: letter-spacing 0.55s var(--ease-out);
+}
+
+.skillcard:hover .skillcard__title {
+  letter-spacing: 0.19em;
+}
+
+.skillcard__detail {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--smoke);
+  position: relative;
+  z-index: 2;
+  max-width: 26ch;
+}
+
+.skillcard__demo-wrap {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  min-height: 92px;
+}
+
+/*
+ * The specimen is always present as a ghost of the document — the card is a
+ * document, not a UI tile. Hovering lifts it to full contrast.
+ */
+.skillcard__demo {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding-top: 0.6rem;
+  opacity: 0.24;
+  filter: saturate(0.4);
+  transform: translateY(6px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.7s var(--ease-out),
+    filter 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.skillcard:hover .skillcard__demo,
+.skillcard[data-open="true"] .skillcard__demo {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.skillcard__foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.skillcard__foot .t-mono-sm {
+  font-size: 0.44rem;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+  transition: color 0.45s var(--ease-out);
+}
+
+.skillcard:hover .skillcard__foot .t-mono-sm,
+.skillcard[data-open="true"] .skillcard__foot .t-mono-sm {
+  color: var(--brass);
+}
+
+.skillcard__corner {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-top: 1px solid var(--line-3);
+  border-right: 1px solid var(--line-3);
+  opacity: 0.6;
+}
+
+/* =============================================================
+   MINIATURE DEMONSTRATIONS
+   ============================================================= */
+
+.demo {
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.14));
+  border: 1px solid var(--line-2);
+  padding: 0.55rem 0.6rem;
+  min-height: 88px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  color: var(--paper-3);
+}
+
+.demo__paper-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 11px,
+    rgba(233, 228, 218, 0.045) 11px 12px
+  );
+}
+
+.demo__line {
+  position: relative;
+  display: block;
+  height: 2px;
+  background: rgba(233, 228, 218, 0.2);
+  margin-bottom: 8px;
+}
+
+.demo__code {
+  position: absolute;
+  font-size: 0.44rem;
+  color: var(--brass);
+  letter-spacing: 0.06em;
+}
+
+.demo__strike {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(193, 161, 106, 0.75);
+}
+
+.demo--facing {
+  display: grid;
+  grid-template-columns: 1fr 34%;
+  gap: 0.5rem;
+}
+
+.demo__facing-col {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+}
+
+.demo__facing-col span {
+  display: block;
+  height: 2px;
+  background: rgba(193, 161, 106, 0.42);
+}
+
+.demo__facing-rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 66%;
+  width: 1px;
+  background: rgba(193, 161, 106, 0.4);
+}
+
+.demo__thead,
+.demo__trow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.demo--continuity .demo__thead,
+.demo--continuity .demo__trow {
+  grid-template-columns: 1.1fr 1fr 1fr;
+}
+
+.demo__thead {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line-2);
+  margin-bottom: 5px;
+  color: var(--brass);
+  font-size: 0.44rem;
+  letter-spacing: 0.16em;
+}
+
+.demo__trow {
+  padding: 3.5px 0;
+  border-bottom: 1px dashed rgba(233, 228, 218, 0.07);
+}
+
+.demo__tstate {
+  height: 3px;
+  background: rgba(233, 228, 218, 0.18);
+}
+
+.demo__tstate[data-s="1"] {
+  background: rgba(193, 161, 106, 0.55);
+}
+.demo__tstate[data-s="2"] {
+  background: rgba(143, 47, 38, 0.6);
+}
+
+/* Breakdown */
+.demo--breakdown {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+}
+
+.demo__slug {
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  color: var(--paper);
+  border-bottom: 1px solid var(--line-2);
+  padding-bottom: 5px;
+}
+
+.demo__tally {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+.demo__tally > div {
+  display: grid;
+  gap: 3px;
+  padding: 4px 3px;
+  border: 1px solid var(--line);
+  background: rgba(233, 228, 218, 0.02);
+}
+
+.demo__tally dt {
+  font-size: 0.4rem;
+  letter-spacing: 0.08em;
+  color: var(--smoke);
+  text-transform: uppercase;
+}
+
+.demo__tally dd {
+  font-size: 0.72rem;
+  color: var(--brass);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Call sheet */
+.demo__cs-band {
+  height: 9px;
+  margin: -0.55rem -0.6rem 0.5rem;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(143, 47, 38, 0.5) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.demo__cs-head,
+.demo__dpr-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.44rem;
+  letter-spacing: 0.16em;
+  color: var(--brass);
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line-2);
+  margin-bottom: 5px;
+}
+
+.demo__cs-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 3px 0;
+  border-bottom: 1px dashed rgba(233, 228, 218, 0.07);
+  color: var(--paper-3);
+}
+
+/* Shot list */
+.demo--shots {
+  display: grid;
+  gap: 4px;
+  align-content: center;
+}
+
+.demo__shot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.4;
+}
+
+.demo__shot[data-on="true"] {
+  opacity: 1;
+}
+
+.demo__shot-id {
+  width: 18px;
+  flex: none;
+  color: var(--brass);
+}
+
+.demo__shot-bar {
+  height: 3px;
+  background: rgba(233, 228, 218, 0.22);
+}
+
+/* DPR */
+.demo__dpr-row {
+  display: grid;
+  grid-template-columns: 5.6em 1fr 2.2em;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 0.44rem;
+  color: var(--smoke);
+}
+
+.demo__dpr-bar {
+  height: 3px;
+  background: rgba(233, 228, 218, 0.12);
+  overflow: hidden;
+}
+
+.demo__dpr-bar i {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  transform-origin: left center;
+  animation: demo-fill 1.1s var(--ease-out) both;
+}
+
+@keyframes demo-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.expertise__note {
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--ash);
+  font-size: 0.46rem;
+  letter-spacing: 0.18em;
+  line-height: 1.9;
+  max-width: 62ch;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1180px) {
+  .skillgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .expertise__intro {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1.4rem;
+  }
+  .skillgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .skillgrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .skillcard {
+    min-height: 0;
+  }
+  .skillcard__demo-wrap {
+    min-height: 0;
+  }
+  .skillcard__demo {
+    position: relative;
+    inset: auto;
+    margin-top: 0.2rem;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+@media (hover: none) {
+  .skillcard__demo {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .skillcard__demo-wrap {
+    min-height: 0;
+  }
+  .skillcard__foot .t-mono-sm::after {
+    content: "SPECIMEN";
+  }
+}

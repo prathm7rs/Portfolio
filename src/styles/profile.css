@@ -1,0 +1,315 @@
+/* =============================================================
+   PROFILE / IDENTITY — split screen, layered plate
+   ============================================================= */
+
+.profile {
+  background: var(--ink-850);
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.profile__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+
+/* ---------- Left ---------- */
+.profile__kicker {
+  color: var(--brass);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.26em;
+  margin-bottom: clamp(1.2rem, 3vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.profile__kicker::after {
+  content: "";
+  flex: 1;
+  max-width: 140px;
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--brass-faint) 0 3px, transparent 3px 7px);
+}
+
+.profile__name {
+  margin-bottom: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+
+.profile__roles {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: clamp(1.6rem, 3.5vw, 2.4rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.profile__role {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2vw, 1.75rem);
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-2);
+}
+
+.profile__facts {
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  display: grid;
+  gap: 1rem;
+}
+
+.profile__facts > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.4fr) 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed rgba(233, 228, 218, 0.07);
+}
+
+.profile__facts dt {
+  color: var(--ash);
+}
+
+.profile__facts dd {
+  color: var(--bone);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+}
+
+/* ---------- Right ---------- */
+.profile__right {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+}
+
+.idplate {
+  position: relative;
+  aspect-ratio: 13 / 12;
+  min-height: 380px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  background:
+    radial-gradient(ellipse 90% 70% at 30% 8%, rgba(233, 228, 218, 0.05), transparent 62%),
+    linear-gradient(160deg, #101014, #0a0a0c 60%, #0c0c10);
+  box-shadow:
+    inset 0 1px 0 rgba(233, 228, 218, 0.05),
+    0 40px 80px -50px rgba(0, 0, 0, 0.9);
+}
+
+.idplate__layer {
+  position: absolute;
+  will-change: transform;
+}
+
+.idplate__layer--grid {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.idplate__gridlines line {
+  stroke: rgba(233, 228, 218, 0.05);
+  stroke-width: 0.7;
+}
+
+.idplate__layer--page {
+  left: 9%;
+  top: 12%;
+  width: 44%;
+  opacity: 0.72;
+  transform: rotate(-2deg);
+}
+
+.idplate__paper {
+  fill: rgba(233, 228, 218, 0.03);
+  stroke: rgba(233, 228, 218, 0.14);
+  stroke-width: 0.8;
+}
+
+.idplate__type rect {
+  fill: rgba(233, 228, 218, 0.11);
+}
+
+.idplate__strikes line {
+  stroke: rgba(193, 161, 106, 0.55);
+  stroke-width: 1.1;
+}
+
+.idplate__facing line {
+  stroke: rgba(193, 161, 106, 0.26);
+  stroke-width: 0.9;
+}
+
+.idplate__layer--strip {
+  right: 4%;
+  top: 16%;
+  width: 52%;
+  height: 76px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  padding: 7px 8px;
+  border-block: 1px solid rgba(233, 228, 218, 0.1);
+  opacity: 0.6;
+  transform: rotate(1.2deg);
+}
+
+.idplate__cell {
+  border: 1px solid rgba(233, 228, 218, 0.1);
+  background: linear-gradient(140deg, rgba(233, 228, 218, 0.035), transparent 65%);
+}
+
+.idplate__layer--cs {
+  left: 14%;
+  bottom: 10%;
+  width: 46%;
+  padding: 10px 12px 12px;
+  border: 1px solid rgba(233, 228, 218, 0.11);
+  background: rgba(233, 228, 218, 0.018);
+  opacity: 0.6;
+  transform: rotate(1.4deg);
+}
+
+.idplate__cs-head {
+  height: 8px;
+  width: 46%;
+  background: rgba(193, 161, 106, 0.3);
+  margin-bottom: 9px;
+}
+
+.idplate__cs-band {
+  height: 13px;
+  margin-bottom: 9px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(143, 47, 38, 0.34) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.idplate__cs-lines {
+  display: grid;
+  gap: 5px;
+}
+
+.idplate__cs-lines span {
+  height: 3px;
+  background: rgba(233, 228, 218, 0.14);
+}
+
+.idplate__layer--ruler {
+  right: 6%;
+  bottom: 16%;
+  width: 60%;
+  height: 34px;
+}
+
+.idplate__ruler-ticks {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: end;
+  height: 16px;
+  border-bottom: 1px solid rgba(233, 228, 218, 0.14);
+}
+
+.idplate__ruler-ticks i {
+  height: 5px;
+  width: 1px;
+  background: rgba(233, 228, 218, 0.14);
+}
+
+.idplate__ruler-ticks i[data-major="true"] {
+  height: 12px;
+  background: rgba(193, 161, 106, 0.45);
+}
+
+.idplate__ruler-marks {
+  position: absolute;
+  inset: 18px 0 0 0;
+  height: 14px;
+}
+
+.idplate__ruler-marks b {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border: 1px solid rgba(193, 161, 106, 0.5);
+  border-radius: 50%;
+}
+
+.idplate__light {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 24% 6%, rgba(233, 228, 218, 0.075), transparent 66%),
+    radial-gradient(ellipse 45% 40% at 88% 96%, rgba(193, 161, 106, 0.06), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.idplate__edge {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.profile__plate-caption {
+  color: var(--ash);
+  font-size: 0.46rem;
+  letter-spacing: 0.2em;
+  text-align: right;
+  max-width: 40ch;
+  margin-left: auto;
+  line-height: 1.7;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .profile__shell {
+    grid-template-columns: 1fr;
+  }
+  .profile__right {
+    order: -1;
+  }
+  .idplate {
+    min-height: 300px;
+    aspect-ratio: 16 / 10;
+  }
+  .profile__plate-caption {
+    text-align: left;
+  }
+}
+
+@media (max-width: 620px) {
+  .idplate {
+    min-height: 240px;
+  }
+  .idplate__layer--page {
+    width: 52%;
+    left: 6%;
+  }
+  .idplate__layer--cs {
+    width: 58%;
+    left: 8%;
+  }
+  .idplate__layer--strip {
+    height: 52px;
+  }
+  .profile__facts > div {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}

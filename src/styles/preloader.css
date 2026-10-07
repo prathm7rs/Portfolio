@@ -1,0 +1,248 @@
+/* =============================================================
+   FILM LEADER / PRELOADER
+   ============================================================= */
+
+.leader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: #050506;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.leader__grain {
+  position: absolute;
+  inset: -100px;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: var(--grain-img);
+  background-size: 160px 160px;
+  animation: grain-shift 0.6s steps(1) infinite;
+}
+
+.leader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.leader__name {
+  position: absolute;
+  top: clamp(1.5rem, 4vh, 3rem);
+  left: 50%;
+  translate: -50% 0;
+  color: var(--paper-3);
+  font-size: var(--fs-micro);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* ---- Academy leader dial ---- */
+.leader__stage {
+  position: relative;
+  width: min(38vmin, 340px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+  z-index: 2;
+}
+
+.leader[data-phase="leader"] .leader__stage,
+.leader[data-phase="slate"] .leader__stage,
+.leader[data-phase="exit"] .leader__stage {
+  opacity: 1;
+}
+
+.leader__dial {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.leader__ring {
+  fill: none;
+  stroke: rgba(233, 228, 218, 0.16);
+  stroke-width: 1;
+}
+
+.leader__ring--outer {
+  stroke-dasharray: 2 5;
+}
+
+.leader__ring--mid {
+  stroke: rgba(233, 228, 218, 0.1);
+}
+
+.leader__cross {
+  stroke: rgba(233, 228, 218, 0.13);
+  stroke-width: 1;
+}
+
+.leader__sweepwrap {
+  transition: none;
+}
+
+.leader__sweep {
+  stroke: var(--leader);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 6px rgba(143, 47, 38, 0.55));
+}
+
+.leader__count {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 11vmin, 7rem);
+  line-height: 1;
+  color: var(--paper);
+  letter-spacing: 0;
+  z-index: 1;
+  animation: leader-pop 0.3s var(--ease-out);
+}
+
+@keyframes leader-pop {
+  from {
+    opacity: 0;
+    transform: scale(1.18);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ---- Slate ---- */
+.leader__slate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  z-index: 3;
+}
+
+.leader__slate[data-on="true"] {
+  opacity: 1;
+}
+
+.leader__slate-inner {
+  width: min(84vw, 460px);
+  display: grid;
+  gap: 1.1rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.leader__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.6s var(--ease-out);
+  transition-delay: calc(var(--i) * 90ms);
+}
+
+.leader__slate[data-on="true"] .leader__row {
+  opacity: 1;
+  transform: none;
+}
+
+.leader__row .t-mono {
+  color: var(--paper-2);
+}
+
+.leader__rule {
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--line-3) 0 2px,
+    transparent 2px 6px
+  );
+}
+
+.leader__role {
+  margin-top: 0.4rem;
+  color: var(--brass);
+  letter-spacing: 0.24em;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out) 0.35s;
+}
+
+.leader__slate[data-on="true"] .leader__role {
+  opacity: 1;
+}
+
+/* ---- Load bar ---- */
+.leader__bar {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.6rem, 5vh, 3rem);
+  translate: -50% 0;
+  width: min(60vw, 260px);
+  height: 1px;
+  background: var(--line-2);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.leader__bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  transform-origin: left center;
+  transition: transform 0.7s var(--ease-out);
+}
+
+/* ---- The cut ---- */
+.leader[data-phase="exit"] .leader__stage {
+  animation: leader-cut 0.6s var(--ease-cut) forwards;
+}
+
+.leader[data-phase="exit"] .leader__slate-inner {
+  animation: leader-wipe 0.6s var(--ease-cut) forwards;
+}
+
+@keyframes leader-cut {
+  to {
+    opacity: 0;
+    transform: scale(1.14);
+    filter: blur(6px);
+  }
+}
+
+@keyframes leader-wipe {
+  to {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leader__sweepwrap,
+  .leader__count,
+  .leader__grain {
+    animation: none !important;
+  }
+  .leader[data-phase="exit"] .leader__stage,
+  .leader[data-phase="exit"] .leader__slate-inner {
+    animation: none !important;
+    opacity: 0;
+  }
+}

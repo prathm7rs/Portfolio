@@ -1,0 +1,392 @@
+/* =============================================================
+   PROOF OF WORK — the centrepiece
+   ============================================================= */
+
+.proof {
+  background: linear-gradient(to bottom, var(--ink-850), var(--ink-900));
+  overflow: hidden;
+}
+
+.proof__intro {
+  display: grid;
+  gap: clamp(1rem, 2.4vw, 1.8rem);
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  max-width: 78ch;
+}
+
+.proof__title {
+  margin-bottom: 0.2em;
+}
+
+.proof__sub {
+  color: var(--paper-3);
+  max-width: 24ch;
+}
+
+.proof__disclaimer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  max-width: 62ch;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-left: 1px solid var(--brass-soft);
+  background: rgba(233, 228, 218, 0.014);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--bone);
+}
+
+.proof__disclaimer-tag {
+  color: var(--brass);
+  border: 1px solid var(--brass-faint);
+  padding: 0.25rem 0.5rem;
+  letter-spacing: 0.2em;
+}
+
+/* ---------- Horizontal film strip ---------- */
+.proof__strip {
+  position: relative;
+  padding-block: clamp(1rem, 3vw, 2rem) clamp(2rem, 5vw, 3.5rem);
+  margin-block: clamp(1rem, 3vw, 2rem);
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.proof__strip::before,
+.proof__strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(2rem, 8vw, 8rem);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.proof__strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--ink-850), transparent);
+}
+
+.proof__strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ink-850), transparent);
+}
+
+.proof__strip-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 2rem);
+  padding-inline: var(--gut);
+  will-change: transform;
+}
+
+/* ---------- Specimen card ---------- */
+.specimen {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 1rem;
+  align-content: start;
+  padding: clamp(1.1rem, 2vw, 1.6rem);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(233, 228, 218, 0.028), rgba(233, 228, 218, 0.004));
+  position: relative;
+  transition: border-color 0.55s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.specimen:hover {
+  border-color: rgba(193, 161, 106, 0.3);
+  transform: translateY(-4px);
+}
+
+.specimen::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--brass), transparent);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.specimen:hover::after {
+  opacity: 0.7;
+}
+
+.specimen__head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: baseline;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.specimen__idx {
+  color: var(--brass);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+}
+
+.specimen__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.85vw, 1.7rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--paper);
+}
+
+.specimen__count {
+  grid-column: 2;
+  color: var(--ash);
+  font-size: 0.42rem;
+  letter-spacing: 0.2em;
+  margin-top: 0.2rem;
+}
+
+.specimen__standfirst {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--paper-2);
+  max-width: 34ch;
+}
+
+.specimen__purpose {
+  color: var(--smoke);
+  font-size: 0.44rem;
+  letter-spacing: 0.14em;
+  line-height: 1.9;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--line-2);
+}
+
+/* ---------- Real pages ---------- */
+.specimen__pages {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.specimen__sheet-label {
+  display: block;
+  color: var(--brass);
+  font-size: 0.42rem;
+  letter-spacing: 0.22em;
+  margin-bottom: 0.5rem;
+}
+
+.specimen__frames {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.35rem;
+  padding: 0.4rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--line);
+}
+
+.specimen__frame {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 1px solid transparent;
+  overflow: hidden;
+  background: #0e0e10;
+  transition: border-color 0.4s var(--ease-out), transform 0.55s var(--ease-out);
+  transform: translateY(calc(var(--i) * 3px));
+}
+
+.specimen__frame img {
+  width: 100%;
+  height: clamp(90px, 12vw, 150px);
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(0.15) contrast(1.02);
+  transition: filter 0.5s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.specimen__frame:hover {
+  border-color: var(--brass);
+  transform: translateY(-3px);
+  z-index: 2;
+}
+
+.specimen__frame:hover img {
+  filter: grayscale(0) contrast(1.06);
+  transform: scale(1.04);
+}
+
+.specimen__frame-num {
+  position: absolute;
+  bottom: 3px;
+  left: 4px;
+  font-size: 0.4rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-900);
+  background: var(--paper);
+  padding: 1px 4px;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.specimen__frame:hover .specimen__frame-num {
+  opacity: 1;
+}
+
+.specimen__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.specimen__tech {
+  color: var(--ash);
+  font-size: 0.42rem;
+  letter-spacing: 0.18em;
+}
+
+/* ---------- OPEN SCRIPT ---------- */
+.openscript {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  padding: clamp(1.6rem, 4vw, 3.4rem);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse 80% 100% at 12% 0%, rgba(193, 161, 106, 0.07), transparent 62%),
+    linear-gradient(180deg, rgba(233, 228, 218, 0.022), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.openscript::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 90% at 20% 20%, #000, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 90% at 20% 20%, #000, transparent 72%);
+  pointer-events: none;
+}
+
+.openscript__kicker {
+  color: var(--brass);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.26em;
+  margin-bottom: 0.9rem;
+}
+
+.openscript__title {
+  margin-bottom: 1rem;
+}
+
+.openscript__body {
+  max-width: 44ch;
+  margin-bottom: 1.8rem;
+}
+
+.openscript__right {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.openscript__page {
+  position: relative;
+  width: min(74%, 280px);
+  aspect-ratio: 0.72;
+  background: linear-gradient(180deg, #f2eee6, #e6e0d4);
+  padding: 1.4rem 1.2rem;
+  box-shadow:
+    0 30px 60px -26px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  transform: perspective(1200px) rotateY(-11deg) rotateX(3deg);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.openscript:hover .openscript__page {
+  transform: perspective(1200px) rotateY(-4deg) rotateX(1deg) translateY(-6px);
+}
+
+.openscript__lines {
+  display: grid;
+  gap: 8px;
+}
+
+.openscript__lines span {
+  display: block;
+  height: 2px;
+  background: rgba(22, 19, 15, 0.28);
+}
+
+.openscript__num {
+  position: absolute;
+  bottom: 0.7rem;
+  right: 1rem;
+  color: rgba(22, 19, 15, 0.45);
+  letter-spacing: 0.14em;
+}
+
+.openscript__shadow {
+  position: absolute;
+  bottom: -6%;
+  width: 70%;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+  filter: blur(6px);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1180px) {
+  .proof__strip-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .proof__strip {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 860px) {
+  .proof__strip-track {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .openscript {
+    grid-template-columns: 1fr;
+  }
+  .openscript__right {
+    order: -1;
+  }
+  .openscript__page {
+    width: min(58%, 210px);
+  }
+}
+
+@media (max-width: 620px) {
+  .specimen__frame img {
+    height: 120px;
+  }
+  .specimen__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .openscript__page {
+    width: 46%;
+  }
+}

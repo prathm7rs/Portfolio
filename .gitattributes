@@ -1,0 +1,12 @@
+# Normalise line endings so diffs stay clean across Windows and the Linux
+# builder Vercel uses.
+* text=auto eol=lf
+
+# The portfolio PDF and the extracted document scans are binary.
+*.pdf binary
+*.jpg binary
+*.png binary
+*.woff2 binary
+
+# Keep lockfiles byte-identical — npm and Vercel both care.
+package-lock.json -diff

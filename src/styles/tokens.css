@@ -1,0 +1,70 @@
+/* =============================================================
+   PRATHMESH RANSINGH — DESIGN TOKENS
+   A production design system: near-black stock, warm paper,
+   brass registration accents. Everything is intentionally low-chroma.
+   ============================================================= */
+
+:root {
+  /* --- Substrate: deep charcoal, never flat black --- */
+  --ink-950: #050506;
+  --ink-900: #08080a;
+  --ink-850: #0b0b0d;
+  --ink-800: #101013;
+  --ink-750: #15151a;
+  --ink-700: #1b1b21;
+  --ink-650: #23232a;
+  --ink-600: #2c2c34;
+
+  /* --- Warm off-white stock --- */
+  --paper: #e9e4da;
+  --paper-2: #d8d2c6;
+  --paper-3: #bdb6a8;
+  --bone: #a49d90;
+  --smoke: #7a766e;
+  --ash: #514e48;
+
+  /* --- Restrained metallic accent --- */
+  --brass: #c1a16a;
+  --brass-bright: #d9bd8d;
+  --brass-soft: rgba(193, 161, 106, 0.4);
+  --brass-faint: rgba(193, 161, 106, 0.14);
+
+  /* --- Lines / hairlines --- */
+  --line: rgba(233, 228, 218, 0.075);
+  --line-2: rgba(233, 228, 218, 0.13);
+  --line-3: rgba(233, 228, 218, 0.24);
+  --line-ink: rgba(20, 18, 15, 0.14);
+
+  /* --- Signal red. Leader countdown only. --- */
+  --leader: #8f2f26;
+
+  /* --- Type --- */
+  --font-display: "Bodoni Moda", "Didot", "Bodoni MT", "Times New Roman", serif;
+  --font-sans: "Archivo", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, "Courier New", monospace;
+
+  --fs-mega: clamp(3.2rem, 12.4vw, 15rem);
+  --fs-title: clamp(2.4rem, 7.4vw, 8.5rem);
+  --fs-h2: clamp(1.9rem, 4.6vw, 4.6rem);
+  --fs-h3: clamp(1.15rem, 1.9vw, 1.9rem);
+  --fs-body: clamp(0.95rem, 1.05vw, 1.075rem);
+  --fs-lede: clamp(1.05rem, 1.45vw, 1.4rem);
+  --fs-micro: clamp(0.56rem, 0.66vw, 0.7rem);
+  --fs-tiny: clamp(0.5rem, 0.56vw, 0.6rem);
+
+  /* --- Rhythm --- */
+  --gut: clamp(1.25rem, 4vw, 4.5rem);
+  --rail: clamp(3rem, 5vw, 5.5rem);
+  --sec-pad: clamp(6rem, 14vh, 12rem);
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-cut: cubic-bezier(0.7, 0, 0.2, 1);
+
+  --z-grain: 9000;
+  --z-rail: 800;
+  --z-nav: 700;
+  --z-overlay: 1000;
+  --z-preloader: 1200;
+}

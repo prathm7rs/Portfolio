@@ -1,0 +1,572 @@
+/* =============================================================
+   HERO
+   ============================================================= */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(6rem, 15vh, 9rem) clamp(7rem, 15vh, 10rem);
+}
+
+/* Letterbox: cinematic framing bars, part of the matte */
+.hero__bars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.hero__bars span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(1.6rem, 3.6vh, 3rem);
+  background: #050506;
+}
+
+.hero__bars span:first-child {
+  top: 0;
+  box-shadow: 0 1px 0 rgba(233, 228, 218, 0.045);
+}
+.hero__bars span:last-child {
+  bottom: 0;
+  box-shadow: 0 -1px 0 rgba(233, 228, 218, 0.045);
+}
+
+.hero__shell {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  gap: clamp(1.5rem, 3.5vh, 3rem);
+}
+
+/* ---------- Corner metadata ---------- */
+.hero__meta {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.hero__meta-row {
+  display: grid;
+  grid-template-columns: auto minmax(28px, 74px) auto;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.hero__meta-rule {
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--line-3) 0 2px, transparent 2px 5px);
+}
+
+/* ---------- The name ---------- */
+.hero__name {
+  display: grid;
+  gap: 0.1em;
+  margin-block: clamp(0.4rem, 1.5vh, 1.2rem);
+}
+
+.hero__line-wrap {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.02em 0.06em;
+}
+
+.hero__line {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-mega);
+  font-weight: 400;
+  line-height: 0.83;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+  will-change: transform;
+  transform-origin: left bottom;
+}
+
+.hero__line-wrap:nth-child(2) .hero__line {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(233, 228, 218, 0.55);
+  padding-left: 0.06em;
+}
+
+.hero__rule {
+  margin-top: clamp(1rem, 2.6vh, 2rem);
+  height: 1px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+.hero__rule span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(to right, var(--brass), transparent 70%);
+  transform-origin: left center;
+}
+
+/* ---------- Roles + statement ---------- */
+.hero__foot {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  max-width: 78ch;
+}
+
+.hero__roles {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.hero__role {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero__role-idx {
+  color: var(--brass);
+}
+
+.hero__role-text {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.85vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-2);
+}
+
+.hero__statement {
+  max-width: 40ch;
+}
+
+.hero__statement-text {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.65vw, 1.6rem);
+  line-height: 1.32;
+  color: var(--paper-3);
+}
+
+/* ---------- Scroll cue ---------- */
+.hero__scroll {
+  position: absolute;
+  left: var(--gut);
+  bottom: clamp(1.8rem, 4.2vh, 3rem);
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--bone);
+  transition: color 0.4s var(--ease-out);
+}
+
+.hero__scroll:hover {
+  color: var(--brass);
+}
+
+.hero__scroll-vert {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: start;
+}
+
+.hero__scroll-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hero__scroll-vert .t-mono {
+  font-size: 0.55rem;
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+}
+
+.hero__scroll-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.hero__scroll:hover .hero__scroll-arrow {
+  transform: translateX(0.4em);
+}
+
+.hero__scroll-track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+.hero__scroll-bead {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 34%;
+  background: var(--brass);
+}
+
+.hero__corner {
+  position: absolute;
+  right: max(var(--gut), var(--rail));
+  bottom: clamp(1.8rem, 4.2vh, 3rem);
+  z-index: 7;
+  color: var(--ash);
+  font-size: 0.48rem;
+  letter-spacing: 0.22em;
+}
+
+/* =============================================================
+   PRODUCTION PLATE — the abstract composition
+   ============================================================= */
+
+.hero__plate {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.hero__plate-inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.plate {
+  position: relative;
+  width: min(96vw, 1500px);
+  height: min(86vh, 900px);
+  opacity: 0.9;
+  filter: saturate(0.75);
+}
+
+/* Single key light from upper-left */
+.plate__light {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 60% 70% at 22% 12%, rgba(233, 228, 218, 0.09), transparent 62%),
+    radial-gradient(ellipse 50% 60% at 84% 88%, rgba(193, 161, 106, 0.055), transparent 68%);
+}
+
+.plate__layer {
+  position: absolute;
+  will-change: transform;
+}
+
+/* Layer 1 — screenplay page */
+.plate__layer--script {
+  left: 6%;
+  top: 8%;
+  width: clamp(190px, 25vw, 340px);
+  opacity: 0.72;
+  transform: rotate(-2.4deg);
+  animation: plate-float-a 26s var(--ease-io) infinite alternate;
+}
+
+.plate__paper {
+  fill: rgba(233, 228, 218, 0.036);
+  stroke: rgba(233, 228, 218, 0.2);
+  stroke-width: 0.7;
+}
+
+.plate__rules line {
+  stroke: rgba(233, 228, 218, 0.06);
+  stroke-width: 0.6;
+}
+
+.plate__script rect {
+  fill: rgba(233, 228, 218, 0.14);
+}
+
+.plate__facing line {
+  stroke: rgba(193, 161, 106, 0.3);
+  stroke-width: 0.8;
+}
+
+.plate__strikes line {
+  stroke: rgba(193, 161, 106, 0.65);
+  stroke-width: 1.2;
+}
+
+@keyframes plate-float-a {
+  from {
+    transform: rotate(-2.4deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(-1.2deg) translate3d(0, -18px, 0);
+  }
+}
+
+/* Layer 2 — film strip */
+.plate__layer--strip {
+  right: 4%;
+  top: 14%;
+  width: min(46vw, 620px);
+  height: clamp(84px, 12vh, 140px);
+  border-block: 1px solid rgba(233, 228, 218, 0.16);
+  background: rgba(233, 228, 218, 0.02);
+  opacity: 0.72;
+  transform: rotate(1.6deg);
+  animation: plate-float-b 32s var(--ease-io) infinite alternate;
+}
+
+.plate__perf {
+  position: absolute;
+  inset-block: 0;
+  width: 11px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 6px,
+    rgba(233, 228, 218, 0.13) 6px 13px,
+    transparent 13px 20px
+  );
+}
+
+.plate__perf--a {
+  left: 5px;
+}
+.plate__perf--b {
+  right: 5px;
+}
+
+.plate__frames {
+  position: absolute;
+  inset: 8px 22px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 5px;
+}
+
+.plate__frames span {
+  border: 1px solid rgba(233, 228, 218, 0.09);
+  background: linear-gradient(
+    135deg,
+    rgba(233, 228, 218, 0.028),
+    transparent 60%
+  );
+}
+
+@keyframes plate-float-b {
+  from {
+    transform: rotate(1.6deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(0.6deg) translate3d(0, 24px, 0);
+  }
+}
+
+/* Layer 3 — call sheet fragment */
+.plate__layer--callsheet {
+  left: 52%;
+  bottom: 4%;
+  width: min(30vw, 380px);
+  padding: 10px 12px 14px;
+  border: 1px solid rgba(233, 228, 218, 0.16);
+  background: rgba(233, 228, 218, 0.022);
+  opacity: 0.5;
+  transform: rotate(1.1deg);
+  animation: plate-float-c 22s var(--ease-io) infinite alternate;
+}
+
+.plate__cs-head {
+  height: 9px;
+  width: 44%;
+  background: rgba(193, 161, 106, 0.24);
+  margin-bottom: 9px;
+}
+
+.plate__cs-rows {
+  display: grid;
+  gap: 5px;
+}
+
+.plate__cs-rows span {
+  height: 3px;
+  background: rgba(233, 228, 218, 0.2);
+}
+
+.plate__cs-band {
+  margin-top: 11px;
+  height: 15px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(143, 47, 38, 0.3) 0 3px,
+    transparent 3px 7px
+  );
+}
+
+@keyframes plate-float-c {
+  from {
+    transform: rotate(1.1deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(2deg) translate3d(0, -22px, 0);
+  }
+}
+
+/* Layer 4 — timeline ruler */
+.plate__layer--ruler {
+  left: 2%;
+  bottom: 30%;
+  width: min(52vw, 720px);
+  height: 46px;
+  opacity: 0.58;
+}
+
+.plate__layer--ruler line {
+  stroke: rgba(233, 228, 218, 0.16);
+  stroke-width: 1;
+}
+
+.plate__layer--ruler .plate__tick--major {
+  stroke: rgba(193, 161, 106, 0.6);
+}
+
+/* Layer 5 — camera marks */
+.plate__layer--marks {
+  inset: 0;
+}
+
+.plate__mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(193, 161, 106, 0.3);
+  border-radius: 50%;
+  left: calc(12% + var(--i) * 17%);
+  top: calc(26% + (var(--i) % 3) * 21%);
+  animation: plate-ping 7s var(--ease-io) infinite;
+  animation-delay: calc(var(--i) * -1.4s);
+}
+
+@keyframes plate-ping {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 0.65;
+    transform: scale(1.12);
+  }
+}
+
+.plate__drift {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.plate__drift span {
+  position: absolute;
+  width: 1px;
+  height: 26vh;
+  background: linear-gradient(to bottom, transparent, rgba(233, 228, 218, 0.09), transparent);
+  animation: plate-scan 14s linear infinite;
+}
+
+.plate__drift span:first-child {
+  left: 26%;
+}
+.plate__drift span:last-child {
+  left: 68%;
+  animation-duration: 19s;
+  animation-delay: -6s;
+}
+
+@keyframes plate-scan {
+  from {
+    transform: translateY(-30vh);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .hero__foot {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .hero__statement {
+    max-width: 46ch;
+  }
+  .plate__layer--callsheet {
+    left: 12%;
+    bottom: 6%;
+  }
+  .plate__layer--script {
+    opacity: 0.34;
+  }
+  .plate__layer--ruler {
+    opacity: 0.26;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-block: 6.5rem 7rem;
+  }
+  .hero__meta {
+    display: none;
+  }
+  .hero__corner {
+    display: none;
+  }
+  .plate {
+    opacity: 0.4;
+  }
+  .plate__layer--strip {
+    top: 8%;
+    right: -12%;
+    width: 78vw;
+  }
+  .plate__layer--callsheet {
+    display: none;
+  }
+  .plate__layer--ruler {
+    bottom: 22%;
+    width: 86vw;
+    left: -6%;
+  }
+  .hero__scroll {
+    bottom: 2.6rem;
+  }
+  .hero__line-wrap:nth-child(2) .hero__line {
+    -webkit-text-stroke-width: 0.7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .plate__layer--script {
+    width: 46vw;
+    top: 4%;
+  }
+}
