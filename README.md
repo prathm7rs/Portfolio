@@ -191,9 +191,27 @@ npm run lint
 
 ## Deploying to Vercel
 
-`vercel.json` is already committed. It declares the Vite framework preset, the
-build command and `dist` as the output directory, adds an SPA rewrite so deep
-paths resolve, and sets response headers:
+The repository is connected to Vercel, so **deploying is a push**:
+
+```bash
+git add -A
+git commit -m "…"
+git push            # → Vercel builds, then promotes on main
+```
+
+Every commit on `main` produces a preview URL; merging to `main` promotes it to
+production. Nothing else to run.
+
+The CLI remains available for one-off deploys and rollback:
+
+```bash
+npm run deploy        # vercel --prod
+vercel ls             # deployment history
+vercel rollback       # revert to the previous deployment
+```
+
+`vercel.json` is committed. It declares the Vite framework preset, the build
+command and `dist` as the output directory, and sets response headers:
 
 | Path | Header |
 |------|--------|
@@ -208,28 +226,20 @@ files, and `'unsafe-inline'` for styles because React writes inline `style`
 attributes. `frame-ancestors 'none'` and `object-src 'none'` close the obvious
 holes.
 
-**From the CLI** — install once, then `npm run deploy` (aliased to
-`vercel --prod`) for every release after the first:
+**Node version.** `engines` is pinned to `>=20.19` because Vite 8 will not build
+on older runtimes. Vercel warns that this range will auto-upgrade on the next
+major Node release; that is expected and harmless.
 
-```bash
-npm i -g vercel
-cd portfolio-site
-vercel            # first run: logs in, creates the project, gives you a preview URL
-vercel --prod     # promote to production
-```
+**The 404 fallback.** The build writes `dist/404.html` as a copy of
+`index.html` (see `scripts/postbuild.mjs`). Any unmatched path therefore serves
+the film with a 404 status instead of a platform error page. Do not remove that
+step from the `build` script.
 
-The first `vercel` run is interactive — it opens a browser to authenticate.
-After that it is non-interactive and safe to script or wire into CI.
-
-**Or from the dashboard.** Import the repo and accept the detected settings
-(Framework Preset: Vite, Build: `npm run build`, Output: `dist`); the committed
-`vercel.json` fills in the rest. Every push to the default branch redeploys.
-
-**Or from CI.** With `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` and `VERCEL_TOKEN` set,
-`vercel deploy --prod --yes` is fully non-interactive.
-
-Requires Node `>=20.19` (pinned in `engines`) — Vite 8 will not build on older
-runtimes.
+**Rewrites do not apply here.** `vercel.json` carries a catch-all `rewrites`
+rule, but on this project it does not produce an SPA fallback — which is why the
+`404.html` fallback exists. Note also that adding a `routes` array to
+`vercel.json` silently disables every `headers` entry in the same file; if you
+ever reach for `routes`, re-check that the CSP is still being served.
 
 ### Before you push
 
